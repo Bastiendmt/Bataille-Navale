@@ -1,0 +1,21 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      Bastien
+#
+# Created:     02/04/2016
+# Copyright:   (c) Bastien 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+#!/usr/bin/env python
+
+
+def indiccesVersCaseLn(indices):
+    ligne=str(indices[0])
+    colonne=str(indices[1])
+    indices=[ligne,colonne]
+    return (indices)
+
+
+print indiccesVersCaseLn('K4')

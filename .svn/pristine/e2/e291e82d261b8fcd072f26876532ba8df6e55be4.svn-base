@@ -1,0 +1,114 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        Sans nom1
+# Purpose:
+#
+# Author:      jaming
+#
+# Created:     05/04/2016
+# Copyright:   (c) jaming 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+"""
+Documentation générale à propos du module flottes
+"""
+__author__="DUMONT B.,Jamin G."
+__version__="0.1"
+
+
+def hello():
+    print "salut, je suis Guillaume Jamin"
+def initialisationFlottesParDictionnairesFixes():               #Initialise les deux flottes de maniere fixe
+    maFlotte = {'bateaux' : {'porte-avions' : ["A1", "B1", "C1", "D1", "E1"],
+                            'croiseur' : ["A3" , "A4" , "A5", "A6"],
+                            'contre-torpilleurs' : ["J8", "J9", "J10"],
+                            'sous-marin' : ["F1", "F2", "F3"],
+                            'torpilleur' : ["D2", "E2"] },
+                'tirs' :    [ ],
+                'effets' :  [ ] }
+
+    saFlotte = {'bateaux' : {'porte-avions' :  ["A1", "A2", "A3", "A4", "A5"],
+                            'croiseur' : ["B1", "B2", "B3", "B4"],
+                            'contre-torpilleurs' : ["D1", "D2", "D3"],
+                            'sous-marin' : ["F4", "F5", "F6"],
+                            'torpilleur' : ["H3", "H4"] },
+                'tirs' :    [ ],
+                'effets' :  [ ] }
+
+    return maFlotte,saFlotte
+
+
+def analysetir(flotte,Ln):
+    touche=False
+    flotte['tirs'].append(Ln)
+    for i in flotte['bateaux'].items:
+        if Ln in i[1]:
+            touche=True
+
+
+def positionsDesBateaux(flotte):
+    dictbateau={}
+    listebateau= flotte['bateaux']
+    for elm in listebateau:
+        ##print listebateau[elm]
+        for elm2 in listebateau[elm]:
+            ##print elm2, elm
+            dictbateau[elm2]=elm
+
+    return dictbateau
+
+
+def estunbateaucoule(flotte,bateau):
+    coule=True
+    coorbateau=flotte['bateaux',bateau]
+    i=0
+    while i<coorbateau:
+        if i not in flotte['tirs']:
+            coule=False
+        i+=1
+    return coule
+
+
+def InitialisationdDuneFlotteVide():
+    maFlotte={'bateaux' : {'porte-avions' : [], 'croiseur' : [], 'contre-torpilleurs' : [], 'sous-marin' : [], 'torpilleur' : [] }, 'tirs' : [], 'effets' :  [] }
+    saFlotte={'bateaux' : {'porte-avions' : [], 'croiseur' : [], 'contre-torpilleurs' : [], 'sous-marin' : [], 'torpilleur' : [] }, 'tirs' : [ ], 'effets' :  [ ] }
+    return maFlotte,saFlotte
+
+
+def ajoutePseudo( flotte, chaine ) :
+   flotte["pseudo"] = chaine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Code principal
+if __name__ == '__main__' :
+    # code d'auto-test
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    hello()
+    print " TEST 2) Test de initialisationFlottesParDictionnairesFixes()"
+    print initialisationFlottesParDictionnairesFixes()

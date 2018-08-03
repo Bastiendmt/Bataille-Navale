@@ -1,0 +1,28 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module1
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+
+
+import flottes
+
+Flotte = flottes.initialisationFlottesParDictionnairesFixes()
+maFlotte = Flotte[0]
+
+
+
+def ajoutePseudo( maflotte, chaine ) :
+    maflotte["pseudo"] = chaine
+
+
+ajoutePseudo(maFlotte,'Joueur1')
+##print maFlotte

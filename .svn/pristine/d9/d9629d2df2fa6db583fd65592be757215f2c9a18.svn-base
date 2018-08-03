@@ -1,0 +1,305 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        Sans nom1
+# Purpose:
+#
+# Author:      jaming
+#
+# Created:     05/04/2016
+# Copyright:   (c) jaming 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+"""
+Documentation générale à propos du module flottes
+"""
+__author__="DUMONT B.,Jamin G."
+__version__="0.1"
+
+##import jeuConsole
+import Outils
+import string
+import ntpath
+##import random
+
+
+def hello():
+    print "salut, je suis Guillaume Jamin"
+def initialisationFlottesParDictionnairesFixes(): #OP              ##nitialise les deux flottes de maniere fixe
+    maFlotte = {'bateaux' : {'porte-avions' : ["A1", "B1", "C1", "D1", "E1"],
+                            'croiseur' : ["A3" , "A4" , "A5", "A6"],
+                            'contre-torpilleurs' : ["J8", "J9", "J10"],
+                            'sous-marin' : ["F1", "F2", "F3"],
+                            'torpilleur' : ["D2", "E2"] },
+                'tirs' :    [ ],
+                'effets' :  [ ] }
+
+    saFlotte = {'bateaux' : {'porte-avions' :  ["A1", "A2", "A3", "A4", "A5"],
+                            'croiseur' : ["B1", "B2", "B3", "B4"],
+                            'contre-torpilleurs' : ["D1", "D2", "D3"],
+                            'sous-marin' : ["F4", "F5", "F6"],
+                            'torpilleur' : ["H3", "H4"] },
+                'tirs' :    [ ],
+                'effets' :  [ ] }
+
+    return maFlotte,saFlotte
+
+listedesbateaucoule=[]
+def analysetir(flotte,Ln): #OP
+    ##touche=False
+    tir="null"
+    flotte['tirs'].append(Ln) ##Ajoute le tir à la flotte
+    ##print flotte
+    ##print
+    ##print positionsDesBateaux(flotte,exepte="") ##affiche la case puis le bateau qui lui correspond
+    for elm in positionsDesBateaux(flotte,exepte=""):
+        ##print elm,
+        if elm == Ln :
+            tir = "touche"
+            ##print positionsDesBateaux(flotte,exepte="")[elm],
+            flotte['effets'].append((Ln,tir)) ## Ajout de l'effet
+            print 'L effet de votre tir:',Ln,'==>touche'
+    if tir != "touche":
+        tir = "eau"
+        flotte['effets'].append((Ln,tir))
+        print 'L effet de votre tir:',Ln,'==>eau'
+        return 'eau'
+    ##print flotte
+    ##listtir=['F1','F2','F3','A2','A6','J8','A4','A5','A3'] # test
+    listtir= flotte['tirs']
+    ##listedesbateaucoule=[]
+    etat=0
+    for elm in flotte['bateaux']:  ##parcours des bateaux
+
+        etat=0
+        for elm2 in flotte['bateaux'][elm]: ##parcours des des cases en fonction du bateau
+
+            if elm2 in listtir:
+                etat+=1                 ##si un bateau est touché; l'etat est incremente
+            else:etat = 0
+
+        if etat == len(flotte['bateaux'][elm]) :  ## si le nombre de cases touchees est egal aux nombre de cases du bateau il est coule
+            ##print elm,'coule' #facultatif
+
+            if elm not in listedesbateaucoule:
+                print 'Vous avez coule un bateau! '
+                listedesbateaucoule.append(elm)
+
+
+            #print 'Vous avez coule le',elm,'!' #Petit bug lorsque l'on coule un bateau et que l'on touche une case apres
+                return 'touche'
+    return 'touche'
+
+
+
+
+
+def positionsDesBateaux(flotte,exepte): #OP
+    dictbateau={}
+    listebateau= flotte['bateaux']
+    for elm in listebateau:
+        if elm not in exepte :      ##Si un bateau se trouve dans la lsite exepte la boucle ne va pas procéder à l'affichage des coordonnées de ce bateau
+            for elm2 in listebateau[elm]:
+                #print elm2, elm
+                dictbateau[elm2]=elm
+    return dictbateau
+
+
+def estUnBateauCoule(flotte,bateau): #OP
+    coule=True
+    coorbateau=flotte['bateaux'][bateau]
+    for elm in coorbateau:  ##Verifie si les coordonees du beateau sont dans a liste des tris
+        if elm not in flotte['tirs']:
+            coule=False
+    return coule
+
+
+
+
+def InitialisationdDuneFlotteVide(): #OP
+    Flotte={'bateaux' : {'porte-avions' : [], 'croiseur' : [], 'contre-torpilleurs' : [], 'sous-marin' : [], 'torpilleur' : [] }, 'tirs' : [], 'effets' :  [] }
+    return Flotte
+
+
+def ajoutePseudo( flotte, chaine ) :
+   flotte["pseudo"] = chaine
+
+
+def estUneFlotteComplete(flotte):   #OP       ##Cette fonction vérifie si la flotte est complete
+    listebateaux=flotte['bateaux']
+    if len(listebateaux['sous-marin']) == 3 :
+        if len(listebateaux['contre-torpilleurs']) == 3 :
+            if len(listebateaux['torpilleur']) == 2 :
+                if len(listebateaux['croiseur']) == 4 :
+                    if len(listebateaux['porte-avions']) == 5 :
+                        return True
+                    else: return False
+                else: return False
+            else: return False
+        else: return False
+    else: return False
+
+
+
+
+
+def donneLongueurDUnBateau(bateau): #OP
+    if bateau == 'porte-avions':
+        return 5
+    elif bateau == 'croiseur':
+        return 4
+    elif bateau == 'contre-torpilleurs' or bateau == 'sous-marin':
+        return 3
+    elif bateau == 'torpilleur':
+        return 2
+    else: return 'erreur cle bateau'
+
+def calculPositionsDUnBateau(case, direction, longueur):  #OP
+    listecase=[]
+    i=0
+    indices= Outils.caseLnVersIndices(case)
+    listealph=string.ascii_uppercase
+    if direction == 'horizontal':
+        while i<longueur:
+            if(int(indices[1])+i)>10:
+                return []
+            listecase.append(indices[0]+str(int(indices[1])+i)) ##ajout de la case dans la liste
+            i+=1
+        return listecase
+    if direction == 'vertical':
+        indicecaseinitiale=listealph.index(indices[0])+1 ## permet l'incrementation des lettres
+        while i<longueur:
+            if listealph.index(listealph[indicecaseinitiale+i]) > 10:
+                return []
+            listecase.append(listealph[indicecaseinitiale+i-1]+indices[1]) ##idem
+            i+=1
+        return listecase
+
+
+def positionneBateauParDirection(flotte, bateau, case, direction):  #OP
+    listedescasesoccupe=positionsDesBateaux(flotte,exepte='').keys()
+    if calculPositionsDUnBateau(case, direction,donneLongueurDUnBateau(bateau)) == []: ##Verifie si les cases sont valides
+        return False
+##    print listedescasesoccupe
+##    print calculPositionsDUnBateau(case, direction,donneLongueurDUnBateau(bateau))
+    for elm in calculPositionsDUnBateau(case, direction,donneLongueurDUnBateau(bateau)):  ## Verifie si les cases a placer ne sont pas deja occupe
+
+        if elm in listedescasesoccupe:
+            return False
+        else:
+            flotte['bateaux'][bateau]=calculPositionsDUnBateau(case, direction,donneLongueurDUnBateau(bateau))
+            return True
+
+def choixFlotteAleatoire(flotte): #OP
+    import random
+    listealph = string.uppercase
+    indiceligne=listealph[0:10]
+    indicecolonne=[1,2,3,4,5,6,7,8,9,10]
+    listedirection=['horizontal','vertical']
+
+    for elm in flotte['bateaux']:
+        while flotte['bateaux'][elm] == []:          ## tant qu'un bateau n'a pas ete place, sa premiere case et sa direction change
+            case= random.choice(indiceligne)+str(random.choice(indicecolonne))  ##Choix aleatoire d'une case
+            direction = random.choice(listedirection) ##Choix aléatoire d'une direction
+            positionneBateauParDirection(flottevide,elm,case,direction)
+    return flotte
+
+
+
+
+def estUnesFlotteCoulee(flotte):  #OP
+    for elm in flotte['bateaux']:
+        if estUnBateauCoule(flotte,elm) == False:  ##Si un des bateau n'est pas coulee, la fonction return false
+            return False
+    return True   ##Sinon True; la flotte est coulee
+
+
+def sauvegardePartie(maFlotte,saFlotte): #OP
+    fl=open('sauvegarde.bin','w')
+    maflottestr=str(maFlotte)
+    saflottestr=str(saFlotte)
+    fl.writelines(maflottestr)
+    fl.write('\n')  ##passe sur une deuxieme ligne
+    fl.write(saflottestr)
+    fl.close()
+
+def restaurationPartie(maFlotte,saFlotte):  #OP
+    if ntpath.isfile('sauvegarde.bin') == True:
+        fich=open('sauvegarde.bin','r')
+        texte=fich.readlines()
+        maFlotte= texte[0]
+        saFlotte= texte[1]
+        return maFlotte,saFlotte
+    else: return False
+
+
+Flotte = initialisationFlottesParDictionnairesFixes()
+maFlotte = Flotte[0]
+saFlotte = Flotte[1]
+flottevide = InitialisationdDuneFlotteVide()
+flo2=InitialisationdDuneFlotteVide()
+
+flottealeatoire=choixFlotteAleatoire(flottevide)
+##print flottealeatoire
+
+
+
+
+##print positionsDesBateaux(maFlotte,exepte="croiseur")
+
+##saFlotte['tirs']=['A1','A2','A3']
+##analysetir(saFlotte,'A4')
+##analysetir(saFlotte,'A5')
+##analysetir(saFlotte,'H4')
+
+##analysetir(maFlotte,'J8')
+##print estunbateaucoule(maFlotte,'croiseur')
+
+##print calculPositionsDUnBateau('I10','vertical',2)
+##print positionsDesBateaux(maFlotte,exepte='')
+
+##print flottevide
+##print positionneBateauParDirection(flottevide,'contre-torpilleurs','A5','horizontal')
+##print flottevide
+##
+##choixFlotteAleatoire(flottevide)
+##
+##print flottevide
+
+##maFlotte['tirs']=['F1','F2','F3','J8', 'J9', 'J10','D2', 'E2','A3', 'A4', 'A5', 'A6','A1', 'B1', 'C1', 'D1']
+##print maFlotte
+##print estunbateaucoule(maFlotte,'sous-marin')
+##print estUnesFlotteCoulee(maFlotte)
+
+
+
+##maFlotte = restaurationPartie(maFlotte,saFlotte)[0]
+##saFlotte = restaurationPartie(maFlotte,saFlotte)[1]
+##
+##print maFlotte
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Code principal
+if __name__ == '__main__' :
+    # code d'auto-test
+    print
+    print "Voici l'auto-test du module"
+    print "TEST 1) Test de hello()"
+    hello()
+##    print " TEST 2) Test de initialisationFlottesParDictionnairesFixes()"
+##    print initialisationFlottesParDictionnairesFixes()

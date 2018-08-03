@@ -1,0 +1,2 @@
+{'tirs': ['A9', 'F7'], 'bateaux': {'sous-marin': ['F8', 'G8', 'H8'], 'contre-torpilleurs': ['H4', 'H5', 'H6'], 'torpilleur': ['J4', 'J5'], 'croiseur': ['J2', 'J3', 'J4', 'J5'], 'porte-avions': ['B3', 'C3', 'D3', 'E3', 'F3']}, 'effets': [('A9', 'eau'), ('F7', 'eau')]}
+{'tirs': ['H4', 'B8'], 'bateaux': {'sous-marin': ['H6', 'I6', 'J6'], 'contre-torpilleurs': ['G6', 'H6', 'I6'], 'torpilleur': ['H5', 'I5'], 'croiseur': ['D1', 'D2', 'D3', 'D4'], 'porte-avions': ['E2', 'F2', 'G2', 'H2', 'I2']}, 'effets': [('H4', 'eau'), ('B8', 'eau')]}

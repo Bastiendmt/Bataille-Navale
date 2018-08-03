@@ -1,0 +1,66 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+##print "Variable __name__ dans module", __name__
+
+
+##import jeuConsole
+##import flottes
+import terminal
+import string
+
+Flotte =terminal.flottes.initialisationFlottesParDictionnairesFixes()
+maFlotte = Flotte[0]
+saFlotte = Flotte[1]
+
+
+def sauvegardePartie(maFlotte,saFlotte):
+    fl=open('sauvegarde.bin','w')
+    maflottestr=str(maFlotte)
+    saflottestr=str(saFlotte)
+    fl.writelines(maflottestr)
+    fl.write('\n')  ##passe sur une deuxieme ligne
+    fl.write(saflottestr)
+    fl.close()
+
+
+def restaurationPartie(maFlotte,saFlotte):
+    fich=open('sauvegarde.bin','r')
+    texte=fich.readlines()
+    maFlotte= texte[0]
+    saFlotte= texte[1]
+
+
+
+
+
+
+
+sauvegardePartie(maFlotte,saFlotte)
+restaurationPartie(maFlotte,saFlotte)
+
+print 'methode zeaodinfoeqf'
+fich=open('sauvegarde.bin','r')
+texte = fich.readlines(1)
+print texte
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    #hello()

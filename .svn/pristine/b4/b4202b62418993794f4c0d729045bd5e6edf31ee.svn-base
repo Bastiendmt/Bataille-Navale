@@ -1,0 +1,21 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module1
+# Purpose:
+#
+# Author:      Bastien
+#
+# Created:     06/04/2016
+# Copyright:   (c) Bastien 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+#!/usr/bin/env python
+
+import flottes
+
+[maFlotte, saFlotte] = flottes.initialisationFlottesParDictionnairesFixes()
+maflotte= [maFlotte, saFlotte][0]
+
+
+
+
+

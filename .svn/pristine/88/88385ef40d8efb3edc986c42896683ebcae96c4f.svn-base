@@ -1,0 +1,154 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+print "Variable __name__ dans module", __name__
+
+
+import jeuConsole
+
+
+def hello():
+    print 'hello world im bastien'
+
+
+
+
+
+def flotte2D(Flotte):
+    listeA=['A|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeB=['B|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeC=['C|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeD=['D|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeE=['E|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeF=['F|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeG=['G|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeH=['H|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeI=['I|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeJ=['J|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+
+    grille={'A':listeA,'B':listeB,'C':listeC,'D':listeD,'E':listeE,'F':listeF,'H':listeH,'I':listeI,'J':listeJ}
+    kk= positionsDesBateaux(Flotte)
+    for elm in kk:
+        savepos = grille[elm[0]]
+
+        savepos[int(elm[1])]='#'
+    ##print elm[0],elm[1],
+    ##print savepos
+        grille[elm[0]]=savepos
+
+
+    print "'1','2','3','4','5','6','7','8','9'"
+
+    for elm in grille:      ##parcours les listes
+        print                       ##permet d'afficher le retour a la ligne entre deux lignes
+        for elm2 in grille[elm]:        ##parcours les element de la grille; bateaux ...
+            print elm2,
+
+
+
+maflotte=jeuConsole.maflotte
+
+
+
+
+#flotte2D(maflotte)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    hello()

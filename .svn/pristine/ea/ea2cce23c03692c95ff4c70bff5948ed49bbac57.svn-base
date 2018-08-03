@@ -1,0 +1,133 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+print "Variable __name__ dans module", __name__
+
+
+import jeuConsole
+import flottes
+import string
+
+
+def hello():
+    print 'hello world im bastien'
+
+
+
+def flotte2D(Flotte):
+    listeA=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeB=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeC=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeD=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeE=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeF=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeG=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeH=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeI=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeJ=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+
+    grille={'A':listeA,'B':listeB,'C':listeC,'D':listeD,'E':listeE,'F':listeF,'G':listeG,'H':listeH,'I':listeI,'J':listeJ}
+    kk= flottes.positionsDesBateaux(Flotte)
+    print kk
+
+
+    for elm in kk:
+        savepos = grille[elm[0]]
+        indice = elm.split(elm[0])  ## récupere l'indice meme si >9
+
+        savepos[int(indice[1])-1]='#'  ##affecte des # lorsque un bateau se trouve en cette postion
+        ##print elm[0],elm[1],
+        ##print savepos
+        grille[elm[0]]=savepos
+
+
+    listenum= ['1','2','3','4','5','6','7','8','9','10'] ##Ces 5 lignes permettent d'afficher les indices des colonnes
+    listealph= string.uppercase
+    print ' ',
+    for elm in listenum:
+        print elm,
+    print
+
+
+    i=0
+    for elm in grille:
+        print listealph[i],  ##Affichage de l'indice de la ligne
+        nomdeliste = grille[listealph[i]]  ##Affecte à une variable une liste contenant la position des bateaux
+        i+=1
+        for elmt in nomdeliste:
+            print elmt,        ## Affichage des # ; bateaux
+        print
+
+
+
+
+
+
+
+
+
+
+
+
+
+maflotte=jeuConsole.maflotte
+
+
+
+flotte2D(maflotte)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    #hello()

@@ -1,0 +1,102 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module1
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+
+
+import flottes
+import terminal
+import random
+
+def ajoutePseudo( maflotte, chaine ) :
+    maflotte["pseudo"] = chaine
+
+
+##print 'hello'
+flottevide=flottes.InitialisationdDuneFlotteVide()
+##print flottevide
+
+maFlotte=flottevide
+saFlotte=flottevide
+
+
+choixdelaflotte= terminal.saisieModeInitialisationDesFlottes()       ##Initialisation des flottes
+
+if choixdelaflotte == 'endur':
+    Flotte = flottes.initialisationFlottesParDictionnairesFixes()
+    maFlotte = Flotte[0]
+    saFlotte = Flotte[1]
+elif choixdelaflotte == 'manuel+aleatoire':
+    terminal.placeflottemanuel(maFlotte)
+    saFlotte=flottes.flottealeatoire
+elif choixdelaflotte == 'aleatoire':
+    saFlotte=flottes.flottealeatoire  #Ces 2 flottes sont les memes
+    maFlotte=flottes.flottealeatoire
+
+print "Initialisation des flottes"
+print "--------------------------"
+terminal.flotteTextuelle(maFlotte)
+terminal.flotte2D(maFlotte)
+
+choixmodedejeu = terminal.modedejeu()
+if choixmodedejeu == 'manuel':
+    n=0
+    while flottes.estUnesFlotteCoulee(maFlotte) == False and flottes.estUnesFlotteCoulee(saFlotte) == False:
+        n+=1
+        print                                                                   #Tour du joueur
+        print 'Iteration',n,') joueur joue'
+        terminal.flotte2D(saFlotte,cachee=True)
+        flottes.analysetir(saFlotte,terminal.saisieCibleValideOuCommande(commandes='5'))
+                                                                                #Tour de l'ordi
+        n+=1
+        print
+        print 'Iteration',n,') Vous jouer pour l ordinateur'
+        terminal.flotte2D(maFlotte,cachee=False)
+        flottes.analysetir(maFlotte,terminal.saisieCibleValideOuCommande(commandes='5'))
+    if flottes.estUnesFlotteCoulee(maFlotte) == True:
+        print 'l ordinateur a gagne'
+    else: print 'Bravo vous avez gagne !!'
+
+elif choixmodedejeu == 'auto':
+    n=0
+    while flottes.estUnesFlotteCoulee(maFlotte) == False and flottes.estUnesFlotteCoulee(saFlotte) == False:
+        n+=1
+        print                                                                   #Tour du joueur
+        print 'Iteration',n,') joueur joue'
+        terminal.flotte2D(saFlotte,cachee=True)
+        flottes.analysetir(saFlotte,terminal.saisieCibleValideOuCommande(commandes='5'))
+                                                                                #Tour de l'ordi
+        n+=1
+        print
+        print 'Iteration',n,') l ordinateur joue'
+        listealph = flottes.string.uppercase
+        indiceligne=listealph[0:10]
+        indicecolonne=[1,2,3,4,5,6,7,8,9,10]
+        case= random.choice(indiceligne)+str(random.choice(indicecolonne))
+        while case in maFlotte['tirs']:
+            case = random.choice(indiceligne)+str(random.choice(indicecolonne))
+        flottes.analysetir(maFlotte,case)
+        terminal.flotte2D(maFlotte,cachee=False)
+    if flottes.estUnesFlotteCoulee(maFlotte) == True:
+        print 'l ordinateur a gagne'
+    else: print 'Bravo vous avez gagne !!'
+
+
+
+
+##print maFlotte,'est'
+##terminal.flotte2D(maFlotte)
+##print saFlotte,'est'
+##terminal.flotte2D(saFlotte)
+
+
+##ajoutePseudo(maFlotte,'Joueur1')

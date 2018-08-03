@@ -1,0 +1,30 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        Sans nom1
+# Purpose:
+#
+# Author:      jaming
+#
+# Created:     05/04/2016
+# Copyright:   (c) jaming 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+def indicesVersCaseLn(indices):
+    ligne=str(indices[0])
+    colonne=str(indices[1])
+    indices=ligne+colonne
+    return (indices)
+
+#print indicesVersCaseLn('K4')
+
+def caseLnVersIndices(indices):
+    ligne=str(indices[0])
+    colonne=str(indices[1])
+    indices=[ligne,colonne]
+    return (indices)
+
+
+pp= caseLnVersIndices('K4')
+#print pp[0]

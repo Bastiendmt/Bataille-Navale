@@ -1,0 +1,52 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+##print "Variable __name__ dans module", __name__
+
+
+##import jeuConsole
+##import flottes
+import terminal
+import string
+
+Flotte = flottes.initialisationFlottesParDictionnairesFixes()
+maFlotte = Flotte[0]
+saFlotte = Flotte[1]
+
+
+def sauvegardePartie(maFlotte,saFlotte):
+    fl=open('sauvegarde.bin','w')
+    test=maFlotte
+    ##print test
+    fl.writelines(test)
+    fl.close()
+    fr=open('sauvegarde.bin','r')
+    fr.readline(20)
+
+
+terminal.flotte2D(saFlotte)
+
+
+
+
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    #hello()

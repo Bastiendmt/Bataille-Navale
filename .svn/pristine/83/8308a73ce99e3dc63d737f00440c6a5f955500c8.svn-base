@@ -1,0 +1,213 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+##print "Variable __name__ dans module", __name__
+
+
+import jeuConsole
+import flottes
+import string
+
+
+def hello():
+    print "hello world im bastien"
+
+def flotteTextuelle(flotte):   #OP
+    liste = flotte['bateaux']
+    for elm in liste:
+        print elm,':',  ##Affichage du bateau
+        for case in liste[elm]:
+            print case,
+        print
+        ##print liste[elm] ##Affichage des coordonnées
+
+def saisieCibleValideOuCommande(commandes):
+    case= raw_input("Rentrez une case au format Ln ; A<L<J ; 1<n<10")
+    case = str(case)
+    temp= case.split(case[0]) ## permet de récupérer l'indice meme si n> 9
+    ##print temp[-1]   ##temp[-1] correspond à l'indice de la colonne
+    if case[0]!='A' and case[0]!='B' and case[0]!='C' and case[0]!='D' and case[0]!='E' and case[0]!='F' and case[0]!='G' and case[0]!='H' and case[0]!='I' and case[0]!='J' :
+        saisieCibleValideOuCommande(commandes)
+    elif temp[-1] !='1' and temp[-1] !='2' and temp[-1] !='3' and temp[-1] !='4' and temp[-1] !='5' and temp[-1] !='6' and temp[-1] !='7' and temp[-1] !='8' and temp[-1] !='9' and temp[-1] !='10':
+        saisieCibleValideOuCommande(commandes)
+    return case
+
+
+def flotte2D(Flotte): #A optimiser
+    listeA=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeB=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeC=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeD=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeE=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeF=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeG=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeH=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeI=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeJ=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+
+    grille={'A':listeA,'B':listeB,'C':listeC,'D':listeD,'E':listeE,'F':listeF,'G':listeG,'H':listeH,'I':listeI,'J':listeJ}
+    kk= flottes.positionsDesBateaux(Flotte,exepte="")
+    print kk
+
+
+    for elm in kk:
+        savepos = grille[elm[0]]
+        indice = elm.split(elm[0])  ## récupere l'indice meme si >9
+
+        savepos[int(indice[1])-1]='#'  ##affecte des # lorsque un bateau se trouve en cette postion
+        ##print elm[0],elm[1],
+        ##print savepos
+        grille[elm[0]]=savepos
+
+
+    listenum= ['1','2','3','4','5','6','7','8','9','10'] ##Ces 5 lignes permettent d'afficher les indices des colonnes
+    listealph= string.uppercase
+    print ' ',
+    for elm in listenum:
+        print elm,
+    print
+
+
+    i=0
+    for elm in grille:
+        print listealph[i],  ##Affichage de l'indice de la ligne
+        nomdeliste = grille[listealph[i]]  ##Affecte à une variable une liste contenant la position des bateaux
+        i+=1
+        for elmt in nomdeliste:
+            print elmt,        ## Affichage des # ; bateaux
+        print
+
+
+def saisieModeInitialisationDesFlottes():
+    print 'Mode de choix de la Flotte: '
+    print '---------------------------'
+    print '1> flottes initialisees en dur (choix par défaut)'
+    print '2> flottes initialisees manuellement pour le joueur et aleatoirement pour l ordinateur'
+    print '3> flottes initialisees aleatoirement pour les 2 joueurs '
+    entree= input("Votre choix ?")
+    if entree== 1 :
+        return 'endur'
+    elif entree== 2:
+        return 'manuel+aleatoire'
+    elif entree==3:
+        return 'aleatoire'
+
+
+
+
+
+def choixBateauAPositionner(flotte):
+    i=1
+    bateauxrestant = flotte['bateaux']
+    for elm in bateauxrestant:  ##Affichage des bateaux a positionner
+        print i,elm
+        i+=1
+    saisie= input("Quel bateau voulez-vous placer?")
+    return saisie
+
+
+
+def choixFlotteManuelConsole(flotte):              ##faire n appel a cette fonction tant que tout les bateaux ne sont pas placés, vérifier le positionnement des bateaux grace à flottes.estUneFlotteComplete()
+    saisie =choixBateauAPositionner(flotte)
+    if saisie == 1: ## postionnement du sous-marin
+        nbcase = 3
+        position = raw_input("Entrez la position initiale")                     ##demande des saisies
+        direction = input("Entrez votre direction; 0 pour gauche, 1 pour haut, 2 pour droite, 3 pour bas")  #A remplacer avec terminal.saisieDirectionValide()
+
+        if direction == 0 :
+            listecasesinvalides=['A1','A2','B1','B2','C1','C2','D1','D2','E1','E2','F1','F2','G1','G2','H1','H2','I1','I2','J1','J2'] ## liste des cases invalides
+            for elm2 in listecasesinvalides:
+                if position == elm2 :      ## Vérification si le bateau va etre dans une case invalide
+                    print
+                    print "!ERREUR!"
+                    print "position invalide"
+                    print
+                    choixFlotteManuelConsole(flotte)  ##Cet appel efface surement les saisie précédentes; à vérifier!!
+                else:
+                    #A COMPLETER AVEC flottes.positionneBateauParDirection #
+                    0
+
+def saisieDirectionValide(): #A changer, enlever gauche, droite. Vertical et horizontal sont toujours de meme sens, il faut cependant vérifier si la case est valide dans flotte.estunecasevalide()
+    direction = raw_input("Entrez votre direction; g pour gauche, v pour vertical, d pour droite, h pour horizontal")
+    if direction == 'v' or direction == 'vertical':
+        return 'vertical'
+    elif direction == 'h' or direction == 'horizontal':
+        return 'horiozntal'
+    elif direction == 'g' or direction == 'gauche':
+        return'gauche'
+    elif direction == 'd' or direction == 'droite':
+        return'droite'
+    else:
+        direction = raw_input("Entrez votre direction; g pour gauche, v pour vertical, d pour droite, h pour horizontal")
+
+
+def flotte2DInconnue(flotte):
+    d
+
+
+maflotte=jeuConsole.maFlotte
+
+flotteTextuelle(maflotte)
+flotte2D(maflotte)
+
+raw_input()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    #hello()

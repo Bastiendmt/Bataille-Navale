@@ -1,0 +1,106 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+print "Variable __name__ dans module", __name__
+
+
+Flotte={'bateaux' : {'porte-avions' : ["A1", "B1", "C1", "D1", "E1"],
+                'croiseur' : ["A3" , "A4" , "A5", "A6"],
+                'contre-torpilleurs' : ["J8", "J9", "J10"],
+                'sous-marin' : ["F1", "F2", "F3"],
+                'torpilleur' : ["D2", "E2"] },
+'tirs' : [ ],
+'effets' :  [ ]}
+
+def hello():
+    print 'hello world im bastien'
+
+
+
+
+def positionsDesBateaux(flotte):
+    dictbateau={}
+
+
+    listebateau= Flotte['bateaux']
+    for elm in listebateau:
+        ##print listebateau[elm]
+        for elm2 in listebateau[elm]:
+            ##print elm2, elm
+            dictbateau[elm2]=elm
+
+    return dictbateau
+
+
+
+
+Flotte={'bateaux' : {'porte-avions' : ["A1", "B1", "C1", "D1", "E1"],
+                'croiseur' : ["A3" , "A4" , "A5", "A6"],
+                'contre-torpilleurs' : ["J8", "J9", "J10"],
+                'sous-marin' : ["F1", "F2", "F3"],
+                'torpilleur' : ["D2", "E2"] },
+'tirs' : [ ],
+'effets' :  [ ]}
+
+
+
+
+
+
+
+
+def flotte2D(Flotte):
+    listeA=['A|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeB=['B|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeC=['C|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeD=['D|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeE=['E|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeF=['F|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeG=['G|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeH=['H|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeI=['I|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    listeJ=['J|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+
+    grille={'A':listeA,'B':listeB,'C':listeC,'D':listeD,'E':listeE,'F':listeF,'H':listeH,'I':listeI,'J':listeJ}
+
+
+
+
+    kk= positionsDesBateaux(Flotte)
+    for elm in kk:
+        savepos = grille[elm[0]]
+
+        savepos[int(elm[1])]='#'
+    ##print elm[0],elm[1],
+    ##print savepos
+        grille[elm[0]]=savepos
+
+
+    print "'1','2','3','4','5','6','7','8','9'"
+    for elm in grille:
+        print grille[elm]
+
+
+
+
+
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    hello()

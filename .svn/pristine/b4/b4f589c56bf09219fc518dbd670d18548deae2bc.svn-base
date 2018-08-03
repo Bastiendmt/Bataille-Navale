@@ -1,0 +1,58 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module1
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+
+
+import flottes
+import terminal
+
+def ajoutePseudo( maflotte, chaine ) :
+    maflotte["pseudo"] = chaine
+
+
+print 'hello'
+flottevide=flottes.InitialisationdDuneFlotteVide()
+print flottevide
+
+maFlotte=flottevide
+saFlotte=flottevide
+
+choixdelaflotte= terminal.saisieModeInitialisationDesFlottes()
+
+
+
+if choixdelaflotte == 'endur':
+    Flotte = flottes.initialisationFlottesParDictionnairesFixes()
+    maFlotte = Flotte[0]
+    saFlotte = Flotte[1]
+elif choixdelaflotte == 'manuel+aleatoire':
+    terminal.placeflottemanuel(maFlotte)
+    saFlotte=flottes.flottealeatoire
+elif choixdelaflotte == 'aleatoire':
+    saFlotte=flottes.flottealeatoire
+    maFlotte=flottes.flottealeatoir
+
+##flottes.choixFlotteAleatoire(flottevide)
+
+
+
+
+
+print maFlotte
+print saFlotte
+##print flottevide
+
+
+
+##ajoutePseudo(maFlotte,'Joueur1')
+##print maFlotte

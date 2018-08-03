@@ -1,0 +1,18 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        Sans nom1
+# Purpose:
+#
+# Author:      jaming
+#
+# Created:     05/04/2016
+# Copyright:   (c) jaming 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+import terminal
+import flottes
+#terminal.hello()
+[maFlotte,saFlotte]=flottes.initialisationFlottesParDictionnairesFixes()
+print [maFlotte,saFlotte][1]

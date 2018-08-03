@@ -1,0 +1,86 @@
+﻿#-------------------------------------------------------------------------------
+# Name:        module2
+# Purpose:
+#
+# Author:      dumontba
+#
+# Created:     05/04/2016
+# Copyright:   (c) dumontba 2016
+# Licence:     <your licence>
+#-------------------------------------------------------------------------------
+
+#!/ usr/bin/env python
+# -*- coding : UTF -8 -*-
+__author__="DUMONT B."
+__version__="0.1"
+print "Variable __name__ dans module", __name__
+
+
+import jeuConsole
+import flottes
+import string
+
+
+def hello():
+    print 'hello world im bastien'
+
+
+
+def saisieCibleValideOuCommande(commandes):
+    case= raw_input("Rentrez une case au format Ln ; A<L<J ; 1<n<10")
+    case = str(case)
+    temp= case.split(case[0]) ## permet de récupérer l'indice meme si n> 9
+    ##print temp[-1]   ##temp[-1] correspond à l'indice de la colonne
+    if case[0]!='A' and case[0]!='B' and case[0]!='C' and case[0]!='D' and case[0]!='E' and case[0]!='F' and case[0]!='G' and case[0]!='H' and case[0]!='I' and case[0]!='J' :
+        saisieCibleValideOuCommande(commandes)
+    elif temp[-1] !='1' and temp[-1] !='2' and temp[-1] !='3' and temp[-1] !='4' and temp[-1] !='5' and temp[-1] !='6' and temp[-1] !='7' and temp[-1] !='8' and temp[-1] !='9' and temp[-1] !='10':
+        saisieCibleValideOuCommande(commandes)
+
+
+
+
+pppp=0
+
+saisieCibleValideOuCommande(pppp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__' :
+    # code d'auto-test
+    print
+    print "Voici l'auto-test du module"
+
+    print "TEST 1) Test de hello()"
+    #hello()
